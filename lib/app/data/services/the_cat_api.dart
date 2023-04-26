@@ -5,11 +5,9 @@ import 'package:dio/dio.dart';
 import '../../domain/models/cat_breeds_model.dart';
 
 class TheCatApi {
-  /// Instancia of [Dio]
   final _dio = Dio();
 
   Future<List<CatModel>> getCats() async {
-    /// [header] is the header of the request with the api key
     final header = {'x-api-key': 'bda53789-d59e-46cd-9bc4-2936630fde39'};
     try {
       final response = await _dio.get(
@@ -23,12 +21,16 @@ class TheCatApi {
         final List<CatModel> cats = dataMap
             .map((Map<String, dynamic> e) => CatModel.fromJson(e))
             .toList();
+        for (var element in cats) {
+          element.urlImage =
+              'https://cdn2.thecatapi.com/images/${element.referenceImageId}.jpg';
+        }
+        cats.removeWhere((element) => element.referenceImageId.isEmpty);
         return cats;
       }
     } catch (e) {
-      print(e);
+      rethrow;
     }
     return [];
   }
 }
-// TODO: Obtener imagen en https://cdn2.thecatapi.com/images/${reference_image_id}
