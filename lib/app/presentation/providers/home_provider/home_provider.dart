@@ -14,6 +14,7 @@ class HomeProvider extends ChangeNotifier {
   final TextEditingController _searchController = TextEditingController();
   final List<CatModel> _catsIds = [];
   final List<CatModel> _cats = [];
+  final FocusNode _focusNode = FocusNode();
   bool _isBottom = false;
   bool _isLoading = false;
   bool _isSearching = false;
@@ -25,7 +26,7 @@ class HomeProvider extends ChangeNotifier {
   bool get isSearching => _isSearching;
   ScrollController get scrollController => _scrollController;
   TextEditingController get searchController => _searchController;
-  FocusNode get focusNode => FocusNode();
+  FocusNode get focusNode => _focusNode;
 
   init() async {
     _cats.addAll(await catRepository.getCats());
@@ -121,7 +122,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void unFoucs() {
-    focusNode.unfocus();
+    _focusNode.unfocus();
     notifyListeners();
   }
 }
