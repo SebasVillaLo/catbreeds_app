@@ -37,6 +37,7 @@ class CatModel {
         wikipediaUrl: json['wikipedia_url'] ?? '',
         hypoallergenic: json['hypoallergenic'] ?? 0,
         referenceImageId: json['reference_image_id'] ?? '',
+        urlImage: json['urlImage'] ?? '',
       );
   CatModel({
     required this.weight,
@@ -76,6 +77,7 @@ class CatModel {
     required this.wikipediaUrl,
     required this.hypoallergenic,
     required this.referenceImageId,
+    required this.urlImage,
   });
 
   Weight weight;
@@ -115,6 +117,7 @@ class CatModel {
   String wikipediaUrl;
   int hypoallergenic;
   String referenceImageId;
+  String urlImage;
 
   Map<String, dynamic> toJson() => {
         'weight': weight.toJson(),
@@ -176,22 +179,3 @@ class Weight {
       };
 }
 
-class Image {
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        url: json['url'],
-        width: json['width'].toDouble(),
-        height: json['height'].toDouble(),
-        id: json['id'],
-      );
-  Image({
-    required this.url,
-    required this.width,
-    required this.height,
-    required this.id,
-  });
-
-  final String url;
-  final double width;
-  final double height;
-  final String id;
-}
